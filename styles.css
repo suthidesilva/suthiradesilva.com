@@ -1,0 +1,450 @@
+/* Base Styles */
+:root {
+    --primary: #00DFFF;
+    --primary-light: rgba(0, 223, 255, 0.2);
+    --primary-dark: #00a3bf;
+    --background: #111827;
+    --surface: #1f2937;
+    --text: #f9fafb;
+    --text-secondary: #9ca3af;
+}
+
+html {
+    scroll-behavior:smooth;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    cursor: none;
+    background-color: var(--background);
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+/* 3D AI Being Canvas */
+#ai-beings-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 5;
+    pointer-events: none;
+}
+.ai-being {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* Cursor Effects */
+.cursor-glow {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle at center, rgba(0, 223, 255, 0.15), transparent 50%);
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease-out;
+    mix-blend-mode: screen;
+}
+
+.cursor-dot {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(0, 223, 255, 0.8);
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.2s ease-out;
+}
+
+/* Navigation */
+.logo-hover {
+    color: var(--text);
+    transition: color 0.3s ease;
+}
+.logo-hover:hover {
+    color: var(--primary);
+    text-shadow: 0 0 50px var(--primary);
+}
+
+.sds-name-hover {
+    color: var(--primary);
+    transition: text-shadow 0.3s ease;
+}
+.sds-name-hover:hover {
+    text-shadow: 0 0 50px var(--primary);
+}
+
+.nav-link {
+    color: var(--text);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--primary);
+    transition: width 0.3s ease;
+}
+
+/* Hide navbar by shifting it up */
+.nav-hidden {
+    transform: translateY(-100%);
+}
+
+.nav-link:hover {
+    text-shadow: 0 0 10px var(--primary-light);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}e
+
+.mobile-nav-link {
+    font-size: 2rem;
+    color: var(--text);
+    transition: color 0.3s ease;
+}
+
+.mobile-nav-link:hover {
+    color: var(--primary);
+}
+
+/* Cards and Elements */
+.project-card, .research-item, .card-hover-effect {
+    background: rgba(31, 41, 55, 0.5);
+    backdrop-filter: blur(12px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    position: relative;
+    z-index: 1;
+}
+
+.project-card::before, .card-hover-effect::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y),
+        rgba(0, 223, 255, 0.1), transparent 40%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-card:hover::before, .card-hover-effect:hover::before {
+    opacity: 1;
+}
+
+.fade-text-container {
+    position: fixed;
+    top: calc(50vh - 4rem); /* Center between navigation bar and scroll message */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    pointer-events: none;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-text-container.hidden {
+    opacity: 0;
+    transform: translate(-50%, -60%); /* Slightly move upwards on hiding */
+}
+
+.fade-text {
+    opacity: 0;
+    filter: blur(10px);
+    transition: opacity 1s ease, filter 1s ease;
+}
+
+.fade-text.active {
+    opacity: 1;
+    filter: blur(0);
+}
+
+/* Skills and Tags */
+.skill-tag {
+    background: rgba(0, 223, 255, 0.1);
+    color: var(--text);
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-tag:hover {
+    background: rgba(0, 223, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 223, 255, 0.2);
+}
+
+/* Education Timeline */
+.education-item {
+    padding: 1rem;
+    border-left: 2px solid var(--primary);
+    margin-left: 1rem;
+    position: relative;
+}
+
+.education-item::before {
+    content: '';
+    position: absolute;
+    left: -0.5rem;
+    top: 1.5rem;
+    width: 1rem;
+    height: 1rem;
+    background: var(--primary);
+    border-radius: 50%;
+}
+
+/* Scroll Message Styles */
+.scroll-message {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.scroll-message.hidden {
+    opacity: 0;
+}
+
+.scroll-indicator {
+    animation: float 2s ease-in-out infinite;
+}
+
+.scroll-dot {
+    animation: scrollDot 2s ease-in-out infinite;
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.6s ease forwards;
+}
+
+/* Add styles for the typewriter container */
+.typewriter-container {
+    z-index: 100;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.typewriter-container.hidden {
+    opacity: 0;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes scrollDot {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(15px);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Enhanced Hover Effects */
+.enhanced-hover {
+    transition: all 0.3s ease;
+}
+
+.enhanced-hover:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 30px rgba(0, 223, 255, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .mobile-menu-open {
+        overflow: hidden;
+    }
+    .scroll-message {
+        bottom: 8px;
+        font-size: 0.875rem;
+    }
+
+    .scroll-indicator svg {
+        width: 20px;
+        height: 32px;
+    }
+}
+
+/* Social Links */
+.social-link:hover {
+    color: var(--primary);
+    transform: translateY(-3px);
+}
+
+
+.rounded-border {
+    border: 2px solid var(--primary);
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+}
+
+/* contact card */
+.hire-me-bounce {
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateX(-70px);
+    }
+    50% {
+        transform: translateX(-60px);
+    }
+}
+
+.glass-card {
+    background: rgba(31, 41, 55, 0.8);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(255, 255, 255);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0px 15px rgba(0, 223, 255);
+}
+
+.bounce-effect {
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(31, 41, 55, 0.6);
+    color: #f9fafb;
+    font-size: 1rem;
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+.form-input:focus {
+    background: rgba(31, 41, 55, 0.8);
+    box-shadow: 0 0 10px rgba(0, 223, 255, 0.5);
+}
+
+.submit-btn {
+    background: var(--text);
+    color: var(--background);
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: rgba(0, 223, 255);
+    transform: translateY(-3px);
+}
+
+.name-profession {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 1rem;
+}
+
+.name {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--text);
+}
+
+.profession {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* Resume Cards */
+.resume-card {
+    background: rgba(31, 41, 55, 0.5);
+    backdrop-filter: blur(12px);
+    padding: 2rem;
+    border-radius: 1.5rem;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    box-shadow: 0 0px 15px rgba(0, 223, 255, 0.1);
+}
+
+/* Button matching the theme */
+.btn-glass {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(0, 223, 255, 0.1);
+    border-radius: 0.5rem;
+    font-weight: 600;
+    color: #f9fafb;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-glass:hover {
+    background: rgba(0, 223, 255, 0.3);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 223, 255, 0.3);
+}
+
+/* Smooth bounce animation */
+.bounce-smooth {
+    animation: bounceSmooth 3s ease-in-out infinite;
+}
+
+@keyframes bounceSmooth {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
